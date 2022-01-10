@@ -9,6 +9,7 @@ public class AfSql
 	public static final int MYSQL = 1;
 	public static final int ORACLE = 2;
 	public static final int SQLSERVER = 3;
+	public static final int DB2 = 4;
 	
 	public static DateFormat dateFormat()
 	{
