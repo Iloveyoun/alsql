@@ -19,14 +19,16 @@ public class AfSqlConfig {
     private int init = 10; // 初始化连接数
     private int min = 5; // 最小链接数
     private int max = 20; // 最大连接数
-    private int poolTimeToWait; // 获取连接最大等待时间
+    private int poolTimeToWait = 3000; // 获取连接最大等待时间
 
     // 运行配置
-    private Boolean printSql = false; // 是否在控制台输出每次执行的SQL与参数
+    private Boolean printSql = false; // 是否在控制台输出每次执行的SQL
     private String sqlhh = "**[SQL] "; // 输出SQL的前缀
 
     private int defaultLimit = 1000; // Page == null时默认取出的数据量
     private Boolean isV = true; // 是否在初始化配置时打印版本字符画
+
+    private int transactionIsolation;   // 事务隔离级别
 
     public String getDriverClassName() {
         return driverClassName;
@@ -106,12 +108,24 @@ public class AfSqlConfig {
     public void setPoolTimeToWait(int poolTimeToWait) {
         this.poolTimeToWait = poolTimeToWait;
     }
+    public Boolean getV() {
+        return isV;
+    }
+    public void setV(Boolean v) {
+        this.isV = v;
+    }
+    public int getTransactionIsolation() {
+        return transactionIsolation;
+    }
+    public void setTransactionIsolation(int transactionIsolation) {
+        this.transactionIsolation = transactionIsolation;
+    }
 
     /**
      * 传入的MAP转换为配置类的属性
      * @param map
      */
-    public void fromMap(Map<String, String> map) {
+    public AfSqlConfig fromMap(Map<String, String> map) {
         setDriverClassName(AfSqlStringUtils.defaultIfEmpty(map.get("driverClassName"), " "));
         setUrl(AfSqlStringUtils.defaultIfEmpty(map.get("url"), " "));
         setUsername(AfSqlStringUtils.defaultIfEmpty(map.get("username"), " "));
@@ -125,6 +139,9 @@ public class AfSqlConfig {
         setSqlhh(AfSqlStringUtils.defaultIfEmpty(map.get("sqlhh"), "**[SQL] "));
         setDefaultLimit(Integer.parseInt(AfSqlStringUtils.defaultIfEmpty(map.get("defaultLimit"), "1000")));
         setIsV(AfSqlStringUtils.strToBoolean(map.get("isV"), true));
+        setTransactionIsolation(Integer.parseInt(AfSqlStringUtils.defaultIfEmpty(map.get("transactionIsolation"), "4")));
+
+        return this;
     }
 
     @Override

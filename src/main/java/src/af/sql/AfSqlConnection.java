@@ -1,6 +1,9 @@
 package src.af.sql;
 
 import src.af.sql.config.AfSqlConfig;
+import src.af.sql.config.AfSqlObjects;
+import src.af.sql.paging.AfIPage;
+import src.af.sql.paging.AfPage;
 import src.af.sql.reflect.AfSqlColumn;
 import src.af.sql.reflect.AfSqlPojo;
 import src.af.sql.reflect.AfSqlReflect;
@@ -70,18 +73,56 @@ public class AfSqlConnection {
     }
 
     /**
-     * 事务支持
-     *
+     * 事务支持-开启事务
      * @throws SQLException
      */
     public void beginTransaction() throws SQLException {
         conn.setAutoCommit(false);
     }
+
+    /**
+     * 提交
+     * @throws SQLException
+     */
     public void commit() throws SQLException {
         conn.commit();
     }
+
+    /**
+     * 回滚
+     * @throws SQLException
+     */
     public void rollback() throws SQLException {
         conn.rollback();
+    }
+
+    /**
+     * 回滚
+     * @throws SQLException
+     */
+    public void rollback(Savepoint sp) throws SQLException {
+        conn.rollback(sp);
+    }
+
+    /**
+     * 设置事务回滚点
+     * @throws SQLException
+     * @return
+     */
+    public Savepoint setSavepoint() throws SQLException {
+        return conn.setSavepoint();
+    }
+
+    public void setSavepoint(String name) throws SQLException {
+        conn.setSavepoint(name);
+    }
+
+    public void setTransactionIsolation(int level) throws SQLException {
+        conn.setTransactionIsolation(level);
+    }
+
+    public int getTransactionIsolation() throws SQLException {
+        return conn.getTransactionIsolation();
     }
 
     /**
@@ -119,8 +160,7 @@ public class AfSqlConnection {
      * @throws Exception
      */
     public String[] getOne(String sql) throws Exception {
-        AfSqlUtil.printSqlInfo(sql);
-        List<String[]> rows = query(sql);
+        List<String[]> rows = query(sql + " LIMIT 0,1");
         if (rows.size() > 0) {
             return rows.get(0);
         }
@@ -136,8 +176,7 @@ public class AfSqlConnection {
      * @throws Exception
      */
     public Map getOne(String sql, int convert) throws Exception {
-        AfSqlUtil.printSqlInfo(sql);
-        List<Map> rows = query(sql, 0);
+        List<Map> rows = query(sql + " LIMIT 0,1", 0);
         if (rows.size() > 0) {
             return rows.get(0);
         }
@@ -151,8 +190,7 @@ public class AfSqlConnection {
      * @param clazz 转成POJO类型
      */
     public Object getOne(String sql, Class clazz) throws Exception {
-        AfSqlUtil.printSqlInfo(sql);
-        List rows = query(sql, clazz);
+        List rows = query(sql + " LIMIT 0,1", clazz);
         if (rows.size() > 0) {
             return rows.get(0);
         }
@@ -317,5 +355,89 @@ public class AfSqlConnection {
         }
     }
 
+    /*********分页查询*********/
+    /**
+     * 分页查询,AfIpage内的数据类型为List<String[]>
+     * @param sql 查询SQL
+     * @param page 分页工具类
+     * @return
+     */
+    public AfIPage<String[]> query(String sql, AfPage page) throws Exception {
+        if (page == null) {
+            page = new AfPage(1, AfSqlObjects.getConfig().getDefaultLimit());
+        }
+        if (page.getTotal() <= 0) {
+            page.setTotal(getCount(sql));
+        }
+        if (page.getTotal() == 0) {
+            return null;
+        }
+        sql = AfSqlObjects.getPaging().getPagingSql(sql, page);
+        return page.setRecords(query(sql));
+    }
 
+    /**
+     * 分页查询,AfIpage内的数据类型为List<Map>
+     * @param sql 查询SQL
+     * @param convert 转换参数,未用到,设为0
+     * @param page 分页工具类
+     * @return
+     * @throws Exception
+     */
+    public AfIPage<Map> query(String sql, int convert, AfPage page) throws Exception {
+        if (page == null) {
+            page = new AfPage(1, AfSqlObjects.getConfig().getDefaultLimit());
+        }
+        if (page.getTotal() <= 0) {
+            page.setTotal(getCount(sql));
+        }
+        if (page.getTotal() == 0) {
+            return null;
+        }
+        sql = AfSqlObjects.getPaging().getPagingSql(sql, page);
+        return page.setRecords(query(sql, convert));
+    }
+
+    /**
+     *
+     * @param sql 查询SQL
+     * @param classz 要转换成的POJO类
+     * @param page 分页参数类
+     * @return
+     * @throws Exception
+     */
+    public AfIPage query(String sql, Class classz, AfPage page) throws Exception {
+        if (page == null) {
+            page = new AfPage(1, AfSqlObjects.getConfig().getDefaultLimit());
+        }
+        if (page.getTotal() <= 0) {
+            page.setTotal(getCount(sql));
+        }
+        if (page.getTotal() == 0) {
+            return null;
+        }
+        sql = AfSqlObjects.getPaging().getPagingSql(sql, page);
+        return page.setRecords(query(sql, classz));
+    }
+
+    /*********快捷方法*********/
+    /**
+     * 根据SQL返回符合的条数
+     * @param sql
+     * @return
+     */
+    public Long getCount(String sql) throws Exception {
+        String s = "SELECT COUNT(*) FROM (%s) AS a_table";
+        return getScalarInt(String.format(s, sql));
+    }
+
+    /**
+     * 将聚合查询的第一行第一列的值转换成Long类型
+     * @param sql
+     * @return
+     */
+    public Long getScalarInt(String sql) throws Exception {
+        String[] one = getOne(sql);
+        return one == null ? null : Long.parseLong(one[0]);
+    }
 }

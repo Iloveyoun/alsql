@@ -21,43 +21,99 @@ public class AfSqlInsert {
         this.table = table;
     }
 
-    // 不提供列名，则SQL里只写值，不写列名
+    /**
+     * 不提供列名，则SQL里只写值，不写列名
+     * @param value
+     * @return
+     */
     public AfSqlInsert add(String value) {
-        values.add(value);
+        return add(value, true);
+    }
+
+    /**
+     * *不提供列名，则SQL里只写值，不写列名
+     * @param value
+     * @param isJoin 是否参加构建
+     * @return
+     */
+    public AfSqlInsert add(String value, Boolean isJoin) {
+        if (isJoin) {
+            values.add(value);
+        }
         return this;
     }
 
-    // 提供列名和值
+    /**
+     * 提供列名和值
+     * @param name 列名
+     * @param value 值
+     * @return
+     */
     public AfSqlInsert add(String name, String value) {
-        names.add(name);
-        values.add(value);
+        return add(name, value, true);
+    }
+
+    /**
+     * 提供列名和值
+     * @param name
+     * @param value
+     * @param isJoin 是否参加构建
+     * @return
+     */
+    public AfSqlInsert add(String name, String value, Boolean isJoin) {
+        if (isJoin) {
+            names.add(name);
+            values.add(value);
+        }
         return this;
     }
 
-    // 按类型
+    /***************按类型***************/
+
     public AfSqlInsert add2(String name, String value) {
+        return add2(name, value, true);
+    }
+
+    public AfSqlInsert add2(String name, String value, Boolean isJoin) {
         value = ctx.escape(value); // 转义
-        add(name, value);
+        add(name, value, isJoin);
         return this;
     }
 
     public AfSqlInsert add2(String name, Integer value) {
-        add(name, value.toString());
+        return add2(name, value, true);
+    }
+
+    public AfSqlInsert add2(String name, Integer value, Boolean isJoin) {
+        add(name, value.toString(), isJoin);
         return this;
     }
 
     public AfSqlInsert add2(String name, Long value) {
-        add(name, value.toString());
+        return add2(name, value, true);
+    }
+
+    public AfSqlInsert add2(String name, Long value, Boolean isJoin) {
+        add(name, value.toString(), isJoin);
         return this;
     }
 
     public AfSqlInsert add2(String name, Short value) {
-        add(name, value.toString());
+        return add2(name, value, true);
+    }
+
+    public AfSqlInsert add2(String name, Short value, Boolean isJoin) {
+        add(name, value.toString(), isJoin);
         return this;
     }
 
     public AfSqlInsert add2(String name, Boolean value) {
         add(name, value ? "1" : "0");
+        return this;
+    }
+
+    public AfSqlInsert add2(String name, Boolean value, Boolean isJoin) {
+        add(name, value ? "1" : "0", isJoin);
         return this;
     }
 

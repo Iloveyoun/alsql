@@ -1,11 +1,8 @@
 package src.af.sql.config;
 
-import com.fly.jdbc.cfg.FlyObjects;
-import com.fly.jdbc.paging.FlyPaging;
-import com.fly.jdbc.paging.FlyPagingMysql;
 import src.af.sql.datasource.AfSqlDataSource;
+import src.af.sql.paging.AfIPaging;
 import src.af.sql.paging.AfPaging;
-import src.af.sql.paging.AfPagingMySql;
 import src.af.sql.util.AfSqlUtil;
 
 import javax.sql.DataSource;
@@ -54,19 +51,19 @@ public class AfSqlObjects {
         }
     }
 
-    private static AfPaging paging;	 // 分页对象
-    public static AfPaging getPaging() {
+    private static AfIPaging paging;	 // 分页对象
+    public static AfIPaging getPaging() {
         if(paging == null) {
             initPageing();
         }
         return paging;
     }
-    public static void setPaging(AfPaging paging) {
+    public static void setPaging(AfIPaging paging) {
         AfSqlObjects.paging = paging;
     }
     public synchronized static void initPageing() {
         if(paging == null) {
-            setPaging(new AfPagingMySql());
+            setPaging(new AfPaging());
         }
     }
 }

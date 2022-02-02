@@ -62,6 +62,16 @@ public class AfPage<T> implements AfIPage{
     }
 
     /**
+     * 静态方法获取分页工具类
+     * @param current
+     * @param size
+     * @return
+     */
+    public static AfPage getPage(long current, long size){
+        return new AfPage(current, size);
+    }
+
+    /**
      * 是否存在上一页
      * @return true / false
      */
@@ -83,7 +93,7 @@ public class AfPage<T> implements AfIPage{
     }
 
     @Override
-    public AfIPage setRecords(List records) {
+    public AfIPage<T> setRecords(List records) {
         this.records = records;
         return this;
     }
@@ -128,7 +138,7 @@ public class AfPage<T> implements AfIPage{
     public long getStart() {
         return start;
     }
-    public AfPage setStart(int start) {
+    public AfPage<T> setStart(int start) {
         this.start = start;
         return this;
     }

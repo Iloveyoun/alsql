@@ -1,6 +1,7 @@
 package src.af.sql.datasource;
 
 import src.af.sql.config.AfSqlConfig;
+import src.af.sql.config.AfSqlObjects;
 import src.af.sql.exception.AfSqlException;
 import src.af.sql.exception.AfSysException;
 
@@ -75,6 +76,7 @@ public class AfSqlDataSource implements DataSource {
 	private Connection loadConnection() {
 		try {
 			Connection connection = DriverManager.getConnection(url, username, password);
+			connection.setTransactionIsolation(AfSqlObjects.getConfig().getTransactionIsolation());
 			if (ispool == false) {
 				return connection; // 不启用连接池将不再代理
 			}

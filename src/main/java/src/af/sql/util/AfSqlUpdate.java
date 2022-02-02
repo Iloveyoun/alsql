@@ -1,5 +1,6 @@
 package src.af.sql.util;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import src.af.sql.AfSqlContext;
 
 import java.util.ArrayList;
@@ -23,35 +24,69 @@ public class AfSqlUpdate {
         return this;
     }
 
-    public AfSqlUpdate add(String name, String value) {
-        sss.add(ctx.name(name) + "=" + ctx.value(value));
+    public AfSqlUpdate add(String expr, Boolean isJoin) {
+        if (isJoin) {
+            sss.add(expr);
+        }
         return this;
     }
 
-    ////////////////////////////////
+    public AfSqlUpdate add(String name, String value) {
+        return add(name, value, true);
+    }
+
+    public AfSqlUpdate add(String name, String value, Boolean isJoin) {
+        if (isJoin) {
+            sss.add(ctx.name(name) + "=" + ctx.value(value));
+        }
+        return this;
+    }
+
+    /***************按类型***************/
+
     public AfSqlUpdate add2(String name, String value) {
+        return add2(name, value, true);
+    }
+
+    public AfSqlUpdate add2(String name, String value, Boolean isJoin) {
         value = ctx.escape(value); // 转义
-        add(name, value);
+        add(name, value, isJoin);
         return this;
     }
 
     public AfSqlUpdate add2(String name, Integer value) {
-        add(name, value.toString());
+        return add2(name, value, true);
+    }
+
+    public AfSqlUpdate add2(String name, Integer value, Boolean isJoin) {
+        add(name, value.toString(), isJoin);
         return this;
     }
 
     public AfSqlUpdate add2(String name, Long value) {
-        add(name, value.toString());
+        return add2(name, value, true);
+    }
+
+    public AfSqlUpdate add2(String name, Long value, Boolean isJoin) {
+        add(name, value.toString(), isJoin);
         return this;
     }
 
     public AfSqlUpdate add2(String name, Short value) {
-        add(name, value.toString());
+        return add2(name, value, true);
+    }
+
+    public AfSqlUpdate add2(String name, Short value, Boolean isJoin) {
+        add(name, value.toString(), isJoin);
         return this;
     }
 
     public AfSqlUpdate add2(String name, Boolean value) {
-        add(name, value ? "1" : "0");
+        return add2(name, value, true);
+    }
+
+    public AfSqlUpdate add2(String name, Boolean value, Boolean isJoin) {
+        add(name, value ? "1" : "0", isJoin);
         return this;
     }
 

@@ -1,5 +1,7 @@
 package src.af.sql;
 
+import src.af.sql.util.AfSqlStringUtils;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
@@ -33,8 +35,15 @@ public class AfSqlContext {
         return url;
     }
 
-    // 转义 替换 \ 和 '
+    /**
+     * 转义 替换 \ 和 '
+     * @param sql
+     * @return
+     */
     public String escape(String sql) {
+        if (!AfSqlStringUtils.isNotEmpty(sql)) {
+            return null;
+        }
         StringBuffer sb = new StringBuffer(sql.length() * 2);
         for (int i = 0; i < sql.length(); i++) {
             char ch = sql.charAt(i);
@@ -70,6 +79,7 @@ public class AfSqlContext {
 
     // 值加单引号
     public String value(String str) {
+        if (str==null) return null;
         return "'" + str + "'";
     }
 

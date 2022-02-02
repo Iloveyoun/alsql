@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.util.List;
 import java.util.Map;
 
-import com.fly.jdbc.cfg.FlyObjects;
 import src.af.sql.AfSql;
 import src.af.sql.AfSqlConnection;
 import src.af.sql.config.AfSqlObjects;
@@ -193,17 +192,12 @@ public class AfSimpleDB {
      * @return
      */
     public static AfIPage<String[]> query(String sql, AfPage page) throws Exception {
-        if (page == null) {
-            page = new AfPage(1, AfSqlObjects.getConfig().getDefaultLimit());
+        AfSqlConnection conn = getConnection();
+        try {
+            return conn.query(sql, page);
+        } finally {
+            conn.close();
         }
-        if (page.getTotal() <= 0) {
-            page.setTotal(getCount(sql));
-        }
-        if (page.getTotal() == 0) {
-            return null;
-        }
-        sql = AfSqlObjects.getPaging().getPagingSql(sql, page);
-        return page.setRecords(query(sql));
     }
 
     /**
@@ -215,17 +209,12 @@ public class AfSimpleDB {
      * @throws Exception
      */
     public static AfIPage<Map> query(String sql, int convert, AfPage page) throws Exception {
-        if (page == null) {
-            page = new AfPage(1, AfSqlObjects.getConfig().getDefaultLimit());
+        AfSqlConnection conn = getConnection();
+        try {
+            return conn.query(sql, convert, page);
+        } finally {
+            conn.close();
         }
-        if (page.getTotal() <= 0) {
-            page.setTotal(getCount(sql));
-        }
-        if (page.getTotal() == 0) {
-            return null;
-        }
-        sql = AfSqlObjects.getPaging().getPagingSql(sql, page);
-        return page.setRecords(query(sql, convert));
     }
 
     /**
@@ -237,17 +226,12 @@ public class AfSimpleDB {
      * @throws Exception
      */
     public static AfIPage query(String sql, Class classz, AfPage page) throws Exception {
-        if (page == null) {
-            page = new AfPage(1, AfSqlObjects.getConfig().getDefaultLimit());
+        AfSqlConnection conn = getConnection();
+        try {
+            return conn.query(sql, classz, page);
+        } finally {
+            conn.close();
         }
-        if (page.getTotal() <= 0) {
-            page.setTotal(getCount(sql));
-        }
-        if (page.getTotal() == 0) {
-            return null;
-        }
-        sql = AfSqlObjects.getPaging().getPagingSql(sql, page);
-        return page.setRecords(query(sql, classz));
     }
 
     /*********快捷方法*********/
@@ -257,8 +241,12 @@ public class AfSimpleDB {
      * @return
      */
     public static Long getCount(String sql) throws Exception {
-        String s = "SELECT COUNT(*) FROM (%s) AS a_table";
-        return getScalarInt(String.format(s, sql));
+        AfSqlConnection conn = getConnection();
+        try {
+            return conn.getCount(sql);
+        } finally {
+            conn.close();
+        }
     }
 
     /**
@@ -267,7 +255,11 @@ public class AfSimpleDB {
      * @return
      */
     public static Long getScalarInt(String sql) throws Exception {
-        String[] one = getOne(sql);
-        return one == null ? null : Long.parseLong(one[0]);
+        AfSqlConnection conn = getConnection();
+        try {
+            return conn.getScalarInt(sql);
+        } finally {
+            conn.close();
+        }
     }
 }
