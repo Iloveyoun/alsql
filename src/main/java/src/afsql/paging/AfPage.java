@@ -1,7 +1,5 @@
 package src.afsql.paging;
 
-import com.fly.jdbc.paging.Page;
-
 import java.util.Collections;
 import java.util.List;
 
@@ -85,6 +83,28 @@ public class AfPage<T> implements AfIPage{
      */
     public boolean hasNext() {
         return this.current < this.getPages();
+    }
+    /**
+     * 计算当前分页偏移量
+     */
+    @Override
+    public long offset() {
+        return getCurrent() > 0 ? (getCurrent() - 1) * getSize() : 0;
+    }
+
+    /**
+     * 当前分页总页数
+     */
+    @Override
+    public long getPages() {
+        if (getSize() == 0) {
+            return 0L;
+        }
+        long pages = getTotal() / getSize();
+        if (getTotal() % getSize() != 0) {
+            pages++;
+        }
+        return pages;
     }
 
     @Override

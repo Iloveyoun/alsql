@@ -1,6 +1,5 @@
 package src.afsql.util;
 
-import com.fly.jdbc.cfg.FlyConsts;
 import src.afsql.config.AfSqlObjects;
 
 /**

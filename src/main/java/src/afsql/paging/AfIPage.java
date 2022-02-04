@@ -11,31 +11,12 @@ public interface AfIPage<T> extends Serializable {
     /**
      * 计算当前分页偏移量
      */
-    default long offset() {
-        return getCurrent() > 0 ? (getCurrent() - 1) * getSize() : 0;
-    }
+    long offset();
 
     /**
      * 当前分页总页数
      */
-    default long getPages() {
-        if (getSize() == 0) {
-            return 0L;
-        }
-        long pages = getTotal() / getSize();
-        if (getTotal() % getSize() != 0) {
-            pages++;
-        }
-        return pages;
-    }
-
-    /**
-     * 只是为了 json 反序列化时不报错
-     */
-    default AfIPage<T> setPages(long pages) {
-        // to do nothing
-        return this;
-    }
+    long getPages();
 
     /**
      * 分页记录列表
