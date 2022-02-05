@@ -41,8 +41,7 @@ public class AfSqlUpdate {
         return this;
     }
 
-    /***************按类型***************/
-
+    // 按类型
     public AfSqlUpdate add2(String name, String value) {
         return add2(name, value, true);
     }

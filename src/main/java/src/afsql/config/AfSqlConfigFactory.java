@@ -11,6 +11,8 @@ import java.util.Properties;
 public class AfSqlConfigFactory {
     /**
      * 初始化配置文件
+     * @param configPath 文件地址
+     * @return AfSqlConfig
      */
     public static AfSqlConfig createConfig(String configPath) {
         Map<String, String> map = readPropToMap(configPath);

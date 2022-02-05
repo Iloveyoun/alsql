@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * @title
+ * 分页工具类
  */
 public class AfPage<T> implements AfIPage{
     private static final long serialVersionUID = 8545996863226528798L;
@@ -13,14 +13,17 @@ public class AfPage<T> implements AfIPage{
      * 查询数据列表
      */
     private List<T> records = Collections.emptyList();
+
     /**
      * 总数，当 total 不为 0 时分页插件不会进行 count 查询
      */
     private long total = 0;
+
     /**
      * 每页显示条数，默认 10
      */
     private long size = 10;
+
     /**
      * 当前页
      */
@@ -61,9 +64,9 @@ public class AfPage<T> implements AfIPage{
 
     /**
      * 静态方法获取分页工具类
-     * @param current
-     * @param size
-     * @return
+     * @param current 当前页
+     * @param size 每页条数
+     * @return 工具类
      */
     public static AfPage getPage(long current, long size){
         return new AfPage(current, size);
@@ -84,8 +87,10 @@ public class AfPage<T> implements AfIPage{
     public boolean hasNext() {
         return this.current < this.getPages();
     }
+
     /**
      * 计算当前分页偏移量
+     * @return 偏移量
      */
     @Override
     public long offset() {
@@ -94,6 +99,7 @@ public class AfPage<T> implements AfIPage{
 
     /**
      * 当前分页总页数
+     * @return 分页总页数
      */
     @Override
     public long getPages() {

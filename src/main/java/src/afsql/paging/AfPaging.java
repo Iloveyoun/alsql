@@ -2,9 +2,6 @@ package src.afsql.paging;
 
 import src.afsql.config.AfSqlObjects;
 
-/**
- * @title
- */
 public class AfPaging implements AfIPaging {
     @Override
     public String getPagingSql(String sql, AfPage page) {

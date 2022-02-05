@@ -5,7 +5,7 @@ import src.afsql.util.AfSqlStringUtils;
 import java.util.Map;
 
 /**
- * @title 定义所有配置
+ * 定义所有配置
  */
 public class AfSqlConfig {
 
@@ -123,7 +123,8 @@ public class AfSqlConfig {
 
     /**
      * 传入的MAP转换为配置类的属性
-     * @param map
+     * @param map Map
+     * @return 当前对象
      */
     public AfSqlConfig fromMap(Map<String, String> map) {
         setDriverClassName(AfSqlStringUtils.defaultIfEmpty(map.get("driverClassName"), " "));

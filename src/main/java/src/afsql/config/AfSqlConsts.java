@@ -1,7 +1,7 @@
 package src.afsql.config;
 
 /**
- * @title 定义所有常量
+ * 定义所有常量
  */
 public class AfSqlConsts {
     private AfSqlConsts() {

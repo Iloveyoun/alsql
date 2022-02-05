@@ -15,12 +15,12 @@ public class AfSqlValueParser {
     private DateFormat sdf_d = new SimpleDateFormat("yyyy-MM-dd");
     private DateFormat sdf_t = new SimpleDateFormat("HH:mm:ss");
 
-	/**
-	 * 将str转换成Integer类型
-	 * @param str 字符串
-	 * @param defValue 字符串为Null或者转换出错，就返回这个默认值
-	 * @return
-	 */
+    /**
+     * 将str转换成Integer类型
+     * @param str 字符串
+     * @param defValue 字符串为Null或者转换出错，就返回这个默认值
+     * @return 转换后的值
+     */
     public Integer asInt(String str, Integer defValue) {
         if (str == null) return defValue;
         try {
@@ -34,7 +34,7 @@ public class AfSqlValueParser {
 	 * 将str转换成Long类型
 	 * @param str 字符串
 	 * @param defValue 字符串为Null或者转换出错，就返回这个默认值
-	 * @return
+	 * @return 转换后的值
 	 */
     public Long asLong(String str, Long defValue) {
         if (str == null) return defValue;
@@ -49,7 +49,7 @@ public class AfSqlValueParser {
 	 * 将str转换成Short类型
 	 * @param str 字符串
 	 * @param defValue 字符串为Null或者转换出错，就返回这个默认值
-	 * @return
+	 * @return 转换后的值
 	 */
     public Short asShort(String str, Short defValue) {
         if (str == null) return defValue;
@@ -64,7 +64,7 @@ public class AfSqlValueParser {
 	 * 将str转换成Byte类型
 	 * @param str 字符串
 	 * @param defValue 字符串为Null或者转换出错，就返回这个默认值
-	 * @return
+	 * @return 转换后的值
 	 */
     public Byte asByte(String str, Byte defValue) {
         if (str == null) return defValue;
@@ -79,7 +79,7 @@ public class AfSqlValueParser {
 	 * 将str转换成Double类型
 	 * @param str 字符串
 	 * @param defValue 字符串为Null或者转换出错，就返回这个默认值
-	 * @return
+	 * @return 转换后的值
 	 */
     public Double asDouble(String str, Double defValue) {
         if (str == null) return defValue;
@@ -94,7 +94,7 @@ public class AfSqlValueParser {
 	 * 将str转换成Float类型
 	 * @param str 字符串
 	 * @param defValue 字符串为Null或者转换出错，就返回这个默认值
-	 * @return
+	 * @return 转换后的值
 	 */
     public Float asFloat(String str, Float defValue) {
         if (str == null) return defValue;
@@ -109,7 +109,7 @@ public class AfSqlValueParser {
 	 * 将str转换成Boolean类型
 	 * @param str 字符串
 	 * @param defValue 字符串为Null或者转换出错，就返回这个默认值
-	 * @return
+	 * @return 转换后的值
 	 */
     public Boolean asBoolean(String str, Boolean defValue) {
         if (str == null) return defValue;
@@ -124,7 +124,7 @@ public class AfSqlValueParser {
 	 * 将str转换成String类型
 	 * @param str 字符串
 	 * @param defValue 字符串为Null或者转换出错，就返回这个默认值
-	 * @return
+	 * @return 转换后的值
 	 */
     public String asString(String str, String defValue) {
         if (str == null) return defValue;
@@ -135,7 +135,7 @@ public class AfSqlValueParser {
 	 * 将str转换成Date类型
 	 * @param str 字符串-日期+时间
 	 * @param defValue 字符串为Null或者转换出错，就返回这个默认值
-	 * @return
+	 * @return 转换后的值
 	 */
     public Date asDateTime(String str, Date defValue) {
         if (str == null) return defValue;
@@ -150,7 +150,7 @@ public class AfSqlValueParser {
 	 * 将str转换成Date类型
 	 * @param str 字符串-日期
 	 * @param defValue 字符串为Null或者转换出错，就返回这个默认值
-	 * @return
+	 * @return 转换后的值
 	 */
     public Date asDate(String str, Date defValue) {
         if (str == null) return defValue;

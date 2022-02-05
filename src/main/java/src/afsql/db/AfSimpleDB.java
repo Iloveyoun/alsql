@@ -21,9 +21,8 @@ public class AfSimpleDB {
 
 	/**
 	 * 获取连接 , 并包装为 AfSqlConnection
-	 *
-	 * @return
-	 * @throws Exception
+	 * @return 封装的连接对象
+	 * @throws Exception 错误
 	 */
 	public static AfSqlConnection getConnection() throws Exception {
 	    if (dataSource == null) {
@@ -49,7 +48,7 @@ public class AfSimpleDB {
 	 *
 	 * @param sql INSERT、UPDATE、DELETE等SQL
 	 * @return 受影响的行数
-	 * @throws Exception
+	 * @throws Exception 错误
 	 */
     public static int execute(String sql) throws Exception {
         AfSqlConnection conn = getConnection();
@@ -65,7 +64,7 @@ public class AfSimpleDB {
 	 *
 	 * @param sql SELECT语句
 	 * @return JDBC结果集
-	 * @throws Exception
+	 * @throws Exception 错误
 	 */
     public static ResultSet executeQuery(String sql) throws Exception {
         AfSqlConnection conn = getConnection();
@@ -79,9 +78,9 @@ public class AfSimpleDB {
     /**
      * 查询获取单行记录
      *
-     * @param sql
-     * @return
-     * @throws Exception
+     * @param sql SELECT语句
+     * @return String[]数组
+     * @throws Exception 错误
      */
     public static String[] getOne(String sql) throws Exception {
         AfSqlConnection conn = getConnection();
@@ -94,10 +93,10 @@ public class AfSimpleDB {
 
     /**
      * 查询获取单行记录,返回Map
-     *
-     * @param sql
-     * @return
-     * @throws Exception
+     * @param sql SELECT语句
+     * @param convert 转换参数，给0
+     * @return Map对象
+     * @throws Exception 错误
      */
     public static Map getOne(String sql, int convert) throws Exception {
         AfSqlConnection conn = getConnection();
@@ -110,9 +109,10 @@ public class AfSimpleDB {
 
     /**
      * 查询获取单行记录,转类相应的POJO类型
-     *
-     * @param sql
+     * @param sql SELECT语句
      * @param clazz 转成POJO类型
+     * @return POJO对象
+     * @throws Exception 错误
      */
     public static Object getOne(String sql, Class clazz) throws Exception {
         AfSqlConnection conn = getConnection();
@@ -124,11 +124,11 @@ public class AfSimpleDB {
     }
 
     /**
-	 * 查询多条记录, 返回 List<String[]>
+	 * 查询多条记录, 返回 String[]
 	 *
-	 * @param sql
-	 * @return
-	 * @throws Exception
+	 * @param sql SELECT语句
+	 * @return String[]
+	 * @throws Exception 错误
 	 */
     public static List<String[]> query(String sql) throws Exception {
         AfSqlConnection conn = getConnection();
@@ -139,12 +139,12 @@ public class AfSimpleDB {
         }
     }
 
-
     /**
-     * 查询多条记录, 返回 List<Map>
-     *
-     * @param sql
-     * @param convert 转换参数,未用到,设为0
+     * 查询多条记录, 返回Map
+     * @param sql SELECT语句
+     * @param convert 转换参数，暂时没用到，设为0
+     * @return Map
+     * @throws Exception 错误
      */
     public static List<Map> query(String sql, int convert) throws Exception {
         AfSqlConnection conn = getConnection();
@@ -156,10 +156,11 @@ public class AfSimpleDB {
     }
 
     /**
-     * 查询多条记录, 返回 List<POJO>
-     *
-     * @param sql
-     * @param clazz 要转换成的POJO类
+     * 查询多条记录, 返回 POJO
+     * @param sql SELECT语句
+     * @param clazz 转成POJO类型
+     * @return POJO
+     * @throws Exception 错误
      */
     public static List query(String sql, Class clazz) throws Exception {
         AfSqlConnection conn = getConnection();
@@ -172,8 +173,8 @@ public class AfSimpleDB {
 
     /**
      * 插入一个POJO对象
-     *
      * @param pojo 待插入的POJO对象
+     * @throws Exception 错误
      */
     public static void insert(Object pojo) throws Exception {
         AfSqlConnection conn = getConnection();
@@ -186,10 +187,11 @@ public class AfSimpleDB {
 
     /*********分页查询*********/
     /**
-     * 分页查询,AfIpage内的数据类型为List<String[]>
-     * @param sql 查询SQL
+     * 页查询,AfIpage内的数据类型为String[]
+     * @param sql SELECT语句
      * @param page 分页工具类
-     * @return
+     * @return AfIPage
+     * @throws Exception 错误
      */
     public static AfIPage<String[]> query(String sql, AfPage page) throws Exception {
         AfSqlConnection conn = getConnection();
@@ -201,12 +203,12 @@ public class AfSimpleDB {
     }
 
     /**
-     * 分页查询,AfIpage内的数据类型为List<Map>
-     * @param sql 查询SQL
+     * 分页查询,AfIpage内的数据类型为Map
+     * @param sql SELECT语句
      * @param convert 转换参数,未用到,设为0
      * @param page 分页工具类
-     * @return
-     * @throws Exception
+     * @return AfIPage
+     * @throws Exception 错误
      */
     public static AfIPage<Map> query(String sql, int convert, AfPage page) throws Exception {
         AfSqlConnection conn = getConnection();
@@ -222,8 +224,8 @@ public class AfSimpleDB {
      * @param sql 查询SQL
      * @param classz 要转换成的POJO类
      * @param page 分页参数类
-     * @return
-     * @throws Exception
+     * @return AfIPage
+     * @throws Exception 错误
      */
     public static AfIPage query(String sql, Class classz, AfPage page) throws Exception {
         AfSqlConnection conn = getConnection();
@@ -237,8 +239,9 @@ public class AfSimpleDB {
     /*********快捷方法*********/
     /**
      * 根据SQL返回符合的条数
-     * @param sql
-     * @return
+     * @param sql SELECT语句
+     * @return 条数
+     * @throws Exception 错误
      */
     public static Long getCount(String sql) throws Exception {
         AfSqlConnection conn = getConnection();
@@ -251,8 +254,9 @@ public class AfSimpleDB {
 
     /**
      * 将聚合查询的第一行第一列的值转换成Long类型
-     * @param sql
-     * @return
+     * @param sql SELECT语句
+     * @return 条数
+     * @throws Exception 错误
      */
     public static Long getScalarInt(String sql) throws Exception {
         AfSqlConnection conn = getConnection();

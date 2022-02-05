@@ -18,8 +18,8 @@ public class AfSqlWhere {
 
     /**
      * 加入单个查询条件
-     * @param condition
-     * @return
+     * @param condition 条件表达式
+     * @return 当前类
      */
     public AfSqlWhere add(String condition) {
         return add(condition, true);
@@ -38,10 +38,10 @@ public class AfSqlWhere {
 
     /**
      * 加入有操作符的表达式
-     * @param name
-     * @param op
-     * @param value
-     * @return
+     * @param name 字段名
+     * @param op 符号
+     * @param value 值
+     * @return 当前类
      */
     public AfSqlWhere add(String name, String op, Object value) {
         return add(name, op, value, true);
@@ -60,9 +60,9 @@ public class AfSqlWhere {
 
     /**
      * 字符串值 比较
-     * @param name
-     * @param value
-     * @return
+     * @param name 字段名
+     * @param value 值
+     * @return 当前类
      */
     public AfSqlWhere add2(String name, String value) {
         return add2(name, value, true);
@@ -76,9 +76,9 @@ public class AfSqlWhere {
 
     /**
      * 数值 比较
-     * @param name
-     * @param value
-     * @return
+     * @param name 字段名
+     * @param value 值
+     * @return 当前类
      */
     public AfSqlWhere add2(String name, Long value) {
         return add2(name, value, true);
@@ -91,9 +91,9 @@ public class AfSqlWhere {
 
     /**
      * 数值 比较
-     * @param name
-     * @param value
-     * @return
+     * @param name 字段名
+     * @param value 值
+     * @return 当前类
      */
     public AfSqlWhere add2(String name, Integer value) {
         return add2(name, value, true);
@@ -106,9 +106,9 @@ public class AfSqlWhere {
 
     /**
      * 数值 比较
-     * @param name
-     * @param value
-     * @return
+     * @param name 字段名
+     * @param value 值
+     * @return 当前类
      */
     public AfSqlWhere add2(String name, Short value) {
         return add2(name, value, true);
@@ -130,9 +130,9 @@ public class AfSqlWhere {
 
     /**
      * 构造Like子句，用户要根据需要自己在value里添加%
-     * @param name
-     * @param value
-     * @return
+     * @param name 字段名
+     * @param value 值
+     * @return 当前类
      */
     public AfSqlWhere addLike(String name, String value) {
         return addLike(name, value, true);
@@ -149,9 +149,9 @@ public class AfSqlWhere {
     /**
      * IN
      * WHERE id IN ('07922860270B47FDB02ADD231F885DAB', '08C74DB5EBC64F439BB747EECBEC3862')
-     * @param name
-     * @param values
-     * @return
+     * @param name 字段名
+     * @param values 值
+     * @return 当前类
      */
     public AfSqlWhere addIn(String name, List values) {
         return addIn(name, values, true);

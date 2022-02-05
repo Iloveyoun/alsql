@@ -11,12 +11,12 @@ public class AfSqlMeta {
     public int type;		 // java.sql.Types
     public String typeName;
 
-	/**
-	 * 读取每一列的 MetaData(元数据信息)
-	 * @param rsmd
-	 * @return 元数据信息数组
-	 * @throws Exception
-	 */
+    /**
+     * 读取每一列的 MetaData(元数据信息)
+     * @param rsmd 结果集对象
+     * @return AfSqlMeta
+     * @throws Exception 错误
+     */
     public static AfSqlMeta[] read(ResultSetMetaData rsmd) throws Exception {
         int numColumn = rsmd.getColumnCount();
         AfSqlMeta[] result = new AfSqlMeta[numColumn];

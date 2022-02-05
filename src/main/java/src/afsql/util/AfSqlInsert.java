@@ -23,8 +23,8 @@ public class AfSqlInsert {
 
     /**
      * 不提供列名，则SQL里只写值，不写列名
-     * @param value
-     * @return
+     * @param value 值
+     * @return 当前类
      */
     public AfSqlInsert add(String value) {
         return add(value, true);
@@ -32,9 +32,9 @@ public class AfSqlInsert {
 
     /**
      * *不提供列名，则SQL里只写值，不写列名
-     * @param value
+     * @param value 值
      * @param isJoin 是否参加构建
-     * @return
+     * @return 当前类
      */
     public AfSqlInsert add(String value, Boolean isJoin) {
         if (isJoin) {
@@ -47,7 +47,7 @@ public class AfSqlInsert {
      * 提供列名和值
      * @param name 列名
      * @param value 值
-     * @return
+     * @return 当前类
      */
     public AfSqlInsert add(String name, String value) {
         return add(name, value, true);
@@ -55,10 +55,10 @@ public class AfSqlInsert {
 
     /**
      * 提供列名和值
-     * @param name
-     * @param value
+     * @param name 字段名
+     * @param value 值
      * @param isJoin 是否参加构建
-     * @return
+     * @return 当前类
      */
     public AfSqlInsert add(String name, String value, Boolean isJoin) {
         if (isJoin) {
@@ -68,8 +68,7 @@ public class AfSqlInsert {
         return this;
     }
 
-    /***************按类型***************/
-
+    // 按类型
     public AfSqlInsert add2(String name, String value) {
         return add2(name, value, true);
     }

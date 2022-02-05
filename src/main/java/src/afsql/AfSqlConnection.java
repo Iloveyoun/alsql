@@ -74,7 +74,7 @@ public class AfSqlConnection {
 
     /**
      * 事务支持-开启事务
-     * @throws SQLException
+     * @throws SQLException 错误
      */
     public void beginTransaction() throws SQLException {
         conn.setAutoCommit(false);
@@ -82,7 +82,7 @@ public class AfSqlConnection {
 
     /**
      * 提交
-     * @throws SQLException
+     * @throws SQLException 错误
      */
     public void commit() throws SQLException {
         conn.commit();
@@ -90,7 +90,7 @@ public class AfSqlConnection {
 
     /**
      * 回滚
-     * @throws SQLException
+     * @throws SQLException 错误
      */
     public void rollback() throws SQLException {
         conn.rollback();
@@ -98,7 +98,8 @@ public class AfSqlConnection {
 
     /**
      * 回滚
-     * @throws SQLException
+     * @param sp 回滚点
+     * @throws SQLException 错误
      */
     public void rollback(Savepoint sp) throws SQLException {
         conn.rollback(sp);
@@ -106,8 +107,8 @@ public class AfSqlConnection {
 
     /**
      * 设置事务回滚点
-     * @throws SQLException
-     * @return
+     * @throws SQLException 错误
+     * @return 事务回滚点
      */
     public Savepoint setSavepoint() throws SQLException {
         return conn.setSavepoint();
@@ -126,11 +127,11 @@ public class AfSqlConnection {
     }
 
     /**
-     * 执行INSERT, UPDATE, DELETE 操作
+     * 执行 insert update delete 等SQL
      *
-     * @param sql
-     * @return 受影响行数
-     * @throws Exception
+     * @param sql INSERT、UPDATE、DELETE等SQL
+     * @return 受影响的行数
+     * @throws Exception 错误
      */
     public int execute(String sql) throws Exception {
         AfSqlUtil.printSqlInfo(sql);
@@ -142,9 +143,9 @@ public class AfSqlConnection {
     /**
      * 执行 SELECT 操作
      *
-     * @param sql
+     * @param sql SELECT语句
      * @return JDBC结果集
-     * @throws Exception
+     * @throws Exception 错误
      */
     public ResultSet executeQuery(String sql) throws Exception {
         AfSqlUtil.printSqlInfo(sql);
@@ -153,11 +154,11 @@ public class AfSqlConnection {
     }
 
     /**
-     * 查询单行记录
+     * 查询获取单行记录
      *
-     * @param sql
-     * @return
-     * @throws Exception
+     * @param sql SELECT语句
+     * @return String[]数组
+     * @throws Exception 错误
      */
     public String[] getOne(String sql) throws Exception {
         List<String[]> rows = query(sql + " LIMIT 0,1");
@@ -168,12 +169,11 @@ public class AfSqlConnection {
     }
 
     /**
-     * 查询单行记录
-     *
-     * @param sql
-     * @param convert 转换参数，后期可以改成驼峰命名等
-     * @return 结果集封装成List<Map>
-     * @throws Exception
+     * 查询获取单行记录,返回Map
+     * @param sql SELECT语句
+     * @param convert 转换参数，给0
+     * @return Map对象
+     * @throws Exception 错误
      */
     public Map getOne(String sql, int convert) throws Exception {
         List<Map> rows = query(sql + " LIMIT 0,1", 0);
@@ -185,9 +185,10 @@ public class AfSqlConnection {
 
     /**
      * 查询获取单行记录,转类相应的POJO类型
-     *
-     * @param sql
+     * @param sql SELECT语句
      * @param clazz 转成POJO类型
+     * @return POJO对象
+     * @throws Exception 错误
      */
     public Object getOne(String sql, Class clazz) throws Exception {
         List rows = query(sql + " LIMIT 0,1", clazz);
@@ -198,11 +199,11 @@ public class AfSqlConnection {
     }
 
     /**
-     * 查询多条记录
+     * 查询多条记录, 返回 String[]
      *
-     * @param sql
-     * @return 结果集封装成List<String>
-     * @throws Exception
+     * @param sql SELECT语句
+     * @return String[]
+     * @throws Exception 错误
      */
     public List<String[]> query(String sql) throws Exception {
         ResultSet rs = executeQuery(sql);
@@ -221,12 +222,11 @@ public class AfSqlConnection {
     }
 
     /**
-     * 查询多条记录
-     *
-     * @param sql
-     * @param convert 转换参数，后期可以改成驼峰命名等
-     * @return 结果集封装成List<Map>
-     * @throws Exception
+     * 查询多条记录, 返回Map
+     * @param sql SELECT语句
+     * @param convert 转换参数，暂时没用到，设为0
+     * @return Map
+     * @throws Exception 错误
      */
     public List<Map> query(String sql, int convert) throws Exception {
         ResultSet rs = executeQuery(sql);
@@ -247,12 +247,11 @@ public class AfSqlConnection {
     }
 
     /**
-     * 查询多条记录
-     *
-     * @param sql
-     * @param clazz POJO.class
-     * @return
-     * @throws Exception
+     * 查询多条记录, 返回 POJO
+     * @param sql SELECT语句
+     * @param clazz 转成POJO类型
+     * @return POJO
+     * @throws Exception 错误
      */
     public List query(String sql, Class clazz) throws Exception {
         // 查询
@@ -292,8 +291,8 @@ public class AfSqlConnection {
 
     /**
      * 插入一个POJO对象
-     *
      * @param pojo 待插入的POJO对象
+     * @throws Exception 错误
      */
     public void insert(Object pojo) throws Exception {
         // 解析类的信息
@@ -357,10 +356,11 @@ public class AfSqlConnection {
 
     /*********分页查询*********/
     /**
-     * 分页查询,AfIpage内的数据类型为List<String[]>
-     * @param sql 查询SQL
+     * 页查询,AfIpage内的数据类型为String[]
+     * @param sql SELECT语句
      * @param page 分页工具类
-     * @return
+     * @return AfIPage
+     * @throws Exception 错误
      */
     public AfIPage<String[]> query(String sql, AfPage page) throws Exception {
         if (page == null) {
@@ -377,12 +377,12 @@ public class AfSqlConnection {
     }
 
     /**
-     * 分页查询,AfIpage内的数据类型为List<Map>
-     * @param sql 查询SQL
+     * 分页查询,AfIpage内的数据类型为Map
+     * @param sql SELECT语句
      * @param convert 转换参数,未用到,设为0
      * @param page 分页工具类
-     * @return
-     * @throws Exception
+     * @return AfIPage
+     * @throws Exception 错误
      */
     public AfIPage<Map> query(String sql, int convert, AfPage page) throws Exception {
         if (page == null) {
@@ -403,8 +403,8 @@ public class AfSqlConnection {
      * @param sql 查询SQL
      * @param classz 要转换成的POJO类
      * @param page 分页参数类
-     * @return
-     * @throws Exception
+     * @return AfIPage
+     * @throws Exception 错误
      */
     public AfIPage query(String sql, Class classz, AfPage page) throws Exception {
         if (page == null) {
@@ -423,8 +423,9 @@ public class AfSqlConnection {
     /*********快捷方法*********/
     /**
      * 根据SQL返回符合的条数
-     * @param sql
-     * @return
+     * @param sql SELECT语句
+     * @return 条数
+     * @throws Exception 错误
      */
     public Long getCount(String sql) throws Exception {
         String s = "SELECT COUNT(*) FROM (%s) AS a_table";
@@ -433,8 +434,9 @@ public class AfSqlConnection {
 
     /**
      * 将聚合查询的第一行第一列的值转换成Long类型
-     * @param sql
-     * @return
+     * @param sql SELECT语句
+     * @return 条数
+     * @throws Exception 错误
      */
     public Long getScalarInt(String sql) throws Exception {
         String[] one = getOne(sql);

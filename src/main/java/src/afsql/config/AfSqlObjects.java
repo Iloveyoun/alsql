@@ -8,7 +8,7 @@ import src.afsql.util.AfSqlUtil;
 import javax.sql.DataSource;
 
 /**
- * @title 定义所有对象
+ * 定义所有对象
  */
 public class AfSqlObjects {
     public static String configPath = "afsql.properties"; // 表示afsql配置文件地址

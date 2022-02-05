@@ -9,7 +9,9 @@ import java.sql.Types;
 public class AfSqlReflect {
     /**
      * 表名转类名
-      */
+     * @param table 表名
+     * @return 类名
+     */
     public static String tableClass(String table) {
         String[] sss = table.split("[_-]");
         String className = "";
@@ -23,9 +25,9 @@ public class AfSqlReflect {
     }
 
     /**
-     * 属性名 -> Getter名
-     * @param field
-     * @return
+     * 属性名 - Getter名
+     * @param field String
+     * @return 转换后的String
      */
     public static String getter(String field) {
         // "name" -> "getName()"
@@ -36,9 +38,9 @@ public class AfSqlReflect {
     }
 
     /**
-     * 属性名 -> Setter名
-     * @param field
-     * @return
+     * 属性名 - Setter名
+     * @param field String
+     * @return 转换后的String
      */
     public static String setter(String field) {
         // "name" -> "setName()"
@@ -58,9 +60,9 @@ public class AfSqlReflect {
 
     /**
      * 在一个Class中按名称查找一个方法
-     * @param clazz
-     * @param name
-     * @return
+     * @param clazz .class
+     * @param name 方法名
+     * @return 方法
      */
     public static Method getMethod(Class clazz, String name) {
         Method[] methods = clazz.getMethods();
@@ -71,7 +73,6 @@ public class AfSqlReflect {
         return null;
     }
 
-
     /**
      * 将SQL字段类型转成 Java类型的对象
      * 支持：
@@ -80,6 +81,10 @@ public class AfSqlReflect {
      * - 小数类型 Double, Float, ( DOUBLE, FLOAT, REAL)
      * - 文本类型 String (CHAR, VARCHAR, TEXT)
      * - 时间类型 Date ( DATE, DATETIME, TIMESTAMP)
+     * @param c ..
+     * @param type ..
+     * @param value ..
+     * @return 基本类型
      */
     public static Object typedValue(AfSqlContext c, int type, String value) {
         if (value == null) return null;
@@ -129,8 +134,8 @@ public class AfSqlReflect {
      * 将一个String类型，转成基础类型 Clazz
      *
      * @param clazz 目标类型 ：Integer,Long,Short,Byte,Boolean,Double,Float,String
-     * @param value
-     * @return
+     * @param value 字符串
+     * @return 要的类型
      */
     public static Object typedValue(Class clazz, String value) {
         // Setter的参数值转换
@@ -196,6 +201,10 @@ public class AfSqlReflect {
 
     /**
      * 设置整型属性的值
+     * @param pojo ..
+     * @param setter ..
+     * @param value ..
+     * @throws Exception 错误
      */
     public static void setPojo(Object pojo, Method setter, String value) throws Exception {
         // Setter的参数类型

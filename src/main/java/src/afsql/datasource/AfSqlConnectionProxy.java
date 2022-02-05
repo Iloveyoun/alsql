@@ -17,7 +17,7 @@ class AfSqlConnectionProxy implements InvocationHandler {
 
 	/**
 	 * 构造一个代理对象
-	 * 将要被代理的对象
+	 * @param connection 将要被代理的对象
 	 */
 	public AfSqlConnectionProxy(Connection connection) {
 		this.connection = connection;
@@ -25,7 +25,7 @@ class AfSqlConnectionProxy implements InvocationHandler {
 
 	/**
 	 * 返回代理对象
-	 * @return
+	 * @return JDBC连接
 	 */
 	public Connection getConnection() {
 		return (Connection) Proxy.newProxyInstance(Connection.class.getClassLoader()

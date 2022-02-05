@@ -5,13 +5,12 @@ import java.util.regex.Pattern;
 
 /**
  * String工具类
- * @title 工具类
  */
 public class AfSqlStringUtils {
     /**
      * 判断是否是数字
-     * @param str
-     * @return
+     * @param str 字符串
+     * @return true/false
      */
     public static boolean isNumeric(String str) {
         Pattern pattern = Pattern.compile("[0-9]*");
@@ -19,18 +18,19 @@ public class AfSqlStringUtils {
     }
 
     /**
-     * null或者""
-     * @param trim
-     * @return
+     * 判断String是否为 null或者""
+     * @param trim 字符串
+     * @return true/false
      */
     public static boolean isNotEmpty(String trim) {
         return trim != null && trim.length() != 0;
     }
 
     /**
-     * @param str
-     * @param defaultString
-     * @return
+     * 去除String的空格，如果为Null，返回默认值
+     * @param str 字符串
+     * @param defaultString 默认值
+     * @return 字符串
      */
     public static String defaultIfEmpty(String str, String defaultString) {
         if (str == null) {
@@ -41,9 +41,10 @@ public class AfSqlStringUtils {
     }
 
     /**
-     * @param str
-     * @param defaultBoolean
-     * @return
+     * 把String转成Boolean,
+     * @param str 字符串
+     * @param defaultBoolean 默认值
+     * @return 字符串
      */
     public static Boolean strToBoolean(String str, Boolean defaultBoolean) {
         if (str == null) {

@@ -37,8 +37,8 @@ public class AfSqlContext {
 
     /**
      * 转义 替换 \ 和 '
-     * @param sql
-     * @return
+     * @param sql SQL字符串
+     * @return 转义后的字符串
      */
     public String escape(String sql) {
         if (!AfSqlStringUtils.isNotEmpty(sql)) {
