@@ -53,6 +53,12 @@
         <compile.version>8</compile.version>
     </properties>
 
+    <dependencies>
+
+    </dependencies>
+
+
+
     <issueManagement>
         <system>Github Issue</system>
         <url>https://github.com/Iloveyoun/alsql/issues</url>
