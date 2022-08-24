@@ -9,7 +9,7 @@
     <!-- √框架信息 -->
     <groupId>io.gitee.long-zhangming</groupId>
     <artifactId>afsql</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
     <packaging>jar</packaging>
     <name>afsql</name>
     <description>一个好用的Java语言orm框架,用于帮助您从JDBC操作数据库的繁琐工作中解放出来，只需要很少的代码便可以完成很多常用操作。</description>
