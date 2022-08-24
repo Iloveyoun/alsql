@@ -8,6 +8,7 @@ import src.afsql.reflect.AfSqlColumn;
 import src.afsql.reflect.AfSqlPojo;
 import src.afsql.reflect.AfSqlReflect;
 import src.afsql.util.AfSqlInsert;
+import src.afsql.util.AfSqlStringUtils;
 import src.afsql.util.AfSqlUtil;
 
 import java.lang.reflect.Method;
@@ -307,8 +308,7 @@ public class AfSqlConnection {
 
         // 根据映射关系，类的属性名 <-> 列名，拼凑SQL语句
         for (AfSqlColumn c : po.columns) {
-            String fieldName = c.name; // 列名
-            Method getter = po.findGetter(fieldName);
+            Method getter = po.findGetter(c.name);
             try {
                 Object value = getter.invoke(pojo); // 每一列的值
                 if (value != null) {
@@ -322,7 +322,7 @@ public class AfSqlConnection {
                         // SQL 转义
                         value = ctx.escape((String) value);
                     }
-                    insertSQL.add(fieldName, value.toString());
+                    insertSQL.add(c.humpName, value.toString());
                 }
             } catch (Exception e) {
             }

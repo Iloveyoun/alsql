@@ -6,6 +6,7 @@ package src.afsql.reflect;
 public class AfSqlColumn
 {
 	public String name;// 属性名, 须与列名相同
+	public String humpName;	// 驼峰名
 	public String type; // 映射成的Java类, 未使用
 	public boolean primaryKey = false;// 未使用
 	public int displaySize = 0; // 未使用
