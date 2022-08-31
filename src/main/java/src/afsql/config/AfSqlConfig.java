@@ -147,9 +147,21 @@ public class AfSqlConfig {
 
     @Override
     public String toString() {
-        return "FlyConfig [driverClassName=" + driverClassName + ", url=" + url + ", username=" + username
-                + ", password=" + password + ", ispool=" + ispool + ", init=" + init + ", min=" + min + ", max=" + max
-                + ", printSql=" + printSql + ", sqlhh=" + sqlhh + ", defaultLimit="
-                + defaultLimit + ", isV=" + isV + "]";
+        return "AfSqlConfig{" +
+                "driverClassName='" + driverClassName + '\'' +
+                ", url='" + url + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", ispool=" + ispool +
+                ", init=" + init +
+                ", min=" + min +
+                ", max=" + max +
+                ", poolTimeToWait=" + poolTimeToWait +
+                ", printSql=" + printSql +
+                ", sqlhh='" + sqlhh + '\'' +
+                ", defaultLimit=" + defaultLimit +
+                ", isV=" + isV +
+                ", transactionIsolation=" + transactionIsolation +
+                '}';
     }
 }
