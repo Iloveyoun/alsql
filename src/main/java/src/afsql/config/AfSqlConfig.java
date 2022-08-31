@@ -29,6 +29,7 @@ public class AfSqlConfig {
     private Boolean isV = true; // 是否在初始化配置时打印版本字符画
 
     private int transactionIsolation;   // 事务隔离级别
+    private Boolean isHumpToline;  // 是否开启下划线跟驼峰互转
 
     public String getDriverClassName() {
         return driverClassName;
@@ -120,6 +121,12 @@ public class AfSqlConfig {
     public void setTransactionIsolation(int transactionIsolation) {
         this.transactionIsolation = transactionIsolation;
     }
+    public Boolean getHumpToline() {
+        return isHumpToline;
+    }
+    public void setHumpToline(Boolean humpToline) {
+        isHumpToline = humpToline;
+    }
 
     /**
      * 传入的MAP转换为配置类的属性
@@ -141,6 +148,7 @@ public class AfSqlConfig {
         setDefaultLimit(Integer.parseInt(AfSqlStringUtils.defaultIfEmpty(map.get("defaultLimit"), "1000")));
         setIsV(AfSqlStringUtils.strToBoolean(map.get("isV"), true));
         setTransactionIsolation(Integer.parseInt(AfSqlStringUtils.defaultIfEmpty(map.get("transactionIsolation"), "4")));
+        setIspool(AfSqlStringUtils.strToBoolean(map.get("isHumpToline"), true));
 
         return this;
     }
@@ -162,6 +170,7 @@ public class AfSqlConfig {
                 ", defaultLimit=" + defaultLimit +
                 ", isV=" + isV +
                 ", transactionIsolation=" + transactionIsolation +
+                ", isHumpToline=" + isHumpToline +
                 '}';
     }
 }

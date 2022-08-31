@@ -2,6 +2,7 @@ package src.afsql.reflect;
 
 import src.afsql.annotation.AFCOLUMNS;
 import src.afsql.annotation.AFTABLE;
+import src.afsql.config.AfSqlObjects;
 import src.afsql.util.AfSqlStringUtils;
 
 import java.lang.reflect.Field;
@@ -72,7 +73,7 @@ public class AfSqlPojo {
 
             // 提取出每一列，并转为下划线方式
             p.name = field.getName();
-            p.humpName = AfSqlStringUtils.humpToLine(field.getName());
+            p.humpName = AfSqlObjects.getConfig().getHumpToline() ? AfSqlStringUtils.humpToLine(field.getName()) : field.getName();
             // 判断该字段是否为主键
             if (p.name.equals(generated)) {
                 this.generatedKey = generated;
@@ -94,7 +95,7 @@ public class AfSqlPojo {
 
             // 提取出每一列
             p.name = field.getName();
-            p.humpName = AfSqlStringUtils.humpToLine(field.getName());
+            p.humpName = AfSqlObjects.getConfig().getHumpToline() ? AfSqlStringUtils.humpToLine(field.getName()) : field.getName();
 
             getters.put(p.name, AfSqlReflect.findGetter(this.clazz, p.name));
             setters.put(p.name, AfSqlReflect.findSetter(this.clazz, p.name));
